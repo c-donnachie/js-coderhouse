@@ -1,0 +1,45 @@
+body {
+  font-size: 16px;
+  background-color: rgba(0, 0, 0, 0.81);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+  color: white;
+}
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.section-1 {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  gap: 2rem;
+  padding: 4rem;
+}
+
+.input {
+    height: 2rem;
+    width: 12rem;
+    border-radius: 0.5rem;
+}
+
+.button {
+    height: 3rem;
+    width: 8rem;
+    background-color: rgb(62, 28, 100);
+    border-radius: 1rem;
+    outline: none !important;
+}
