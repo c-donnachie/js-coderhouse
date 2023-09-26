@@ -1,21 +1,30 @@
+function calcularPromedio() {
+    let notas = [];
+    const cantidadNotasInput = document.getElementById("cantidadNotas");
+    const cantidadNotas = parseInt(cantidadNotasInput.value);
 
-const input = document.getElementById('input-1')
+    for (let i = 0; i < cantidadNotas; i++) {
+        let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`));
 
-// Notas
+        if (!isNaN(nota)) {
+            notas.push(nota);
+            console.log(nota);
+        } else {
+            alert("Por favor, ingresa un número válido.");
+            i--;
+        }
+    }
 
-let notas = []
-const cantidadNotas = 4
+    let suma = 0;
+    for (let i = 0; i < notas.length; i++) {
+        suma += notas[i];
+    }
 
-// const promediarNotas = () => {
-//     for (let i = 0; i === notas.length; i++) {
+    let promedio = suma / notas.length;
 
-//     }
-// }
-
-
-for (let i = 0; i === cantidadNotas; i++)  {
-    let nota = prompt(`Ingresa la nota numero ${i}`)
-    notas.push(nota)
-    console.log(nota)
-    document.write(notas)
+    const resultadoDiv = document.getElementById("resultado");
+    resultadoDiv.innerHTML = "Notas ingresadas: " + notas.join(", ") + "<br>";
+    resultadoDiv.innerHTML += "Promedio: " + promedio.toFixed(2);
 }
+
+document.getElementById("calcularButton").addEventListener("click", calcularPromedio);
