@@ -117,3 +117,15 @@ p {
 .lottie-2 {
   display: none;
 }
+
+.modal-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-container::before {
+  background-color: red;
+  height: 20px;
+  width: auto;
+}

@@ -1,73 +1,60 @@
 function calcularPromedio() {
-  let notas = []
-  const cantidadNotasInput = document.getElementById("cantidadNotas")
-  const cantidadNotas = parseInt(cantidadNotasInput.value)
+  const cantidadNotasInput = document.getElementById("cantidadNotas");
+  const resultadoDivNotas = document.getElementById("resultado-notas");
+  const resultadoDivPromedio = document.getElementById("resultado-promedio");
+  const resultadoDivEstado = document.getElementById("resultado-estado");
+  const border = document.getElementById("border");
+  const aprobado = document.getElementById("lottie-aprobado");
+  const reprobado = document.getElementById("lottie-reprobado");
+
+  const cantidadNotas = parseInt(cantidadNotasInput.value);
+  const notas = [];
+  let suma = 0;
 
   for (let i = 0; i < cantidadNotas; i++) {
-    let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`))
+    let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`));
 
-    if (!isNaN(nota)) {
-      notas.push(nota)
-      console.log(nota)
+    if (isNaN(nota)) {
+      alert("Por favor, ingresa un número válido.");
+      i--;
     } else {
-      alert("Por favor, ingresa un número válido.")
-      i--
+      notas.push(nota);
+      suma += nota;
     }
   }
 
-  let suma = 0
-  for (let i = 0; i < notas.length; i++) {
-    suma += notas[i]
-  }
-
-  let promedio = suma / notas.length
-  let estado = ""
-
-  const  x = document.getElementById("resultado-estado")
-
-  // animaciones lotties
-  const aprobado = document.getElementById("lottie-aprobado")
-  const reprobado = document.getElementById("lottie-reprobado")
-
-  //border of container
-  const border = document.getElementById("border")
-
-  function resultado() {
-    if (estado !== "") {
-      x.style.display = "block"
-    }
-  }
+  const promedio = notas.length > 0 ? suma / notas.length : 0;
+  let estadoMensaje = ""
+  let estado = "";
 
   if (promedio === 100.0) {
-    estado = " Perfecto 🥳"
-    x.style.borderColor = "#00DDB3"
-    aprobado.style.display = "block"
-    border.style.borderColor = "#00DDB3"
+    estado = "aprobado";
+    estadoMensaje = "Perfecto 🥳";
+    border.style.borderColor = "#00DDB3";
   } else if (promedio >= 90.0) {
-    estado = " Distinguido 🤩"
-    x.style.borderColor = "#00DDB3"
+    estado = "aprobado";
+    estadoMensaje = "Distinguido 🤩";
+    border.style.borderColor = "#00DDB3";
   } else if (promedio >= 76.0) {
-    estado = " Bueno 😎"
-    x.style.borderColor = "#00DDB3"
+    estado = "aprobado";
+    border.style.borderColor = "#00DDB3";
   } else if (promedio >= 60.0) {
-    estado = " Suficiente 😁"
-    x.style.borderColor = "#00DDB3"
+    estadoMensaje = "Suficiente 😁";
+    border.style.borderColor = "#00DDB3";
   } else {
-    estado = " Reprobado 🥲"
-    x.style.borderColor = "rgb(245, 44, 44)"
-    reprobado.style.display = "block"
-    border.style.borderColor = 'rgb(245, 44, 44)'
+    estado = "reprobado";
+    estadoMensaje = "Reprobado 🥲";
+    border.style.borderColor = "#F52C2C";
   }
 
-  resultado()
+  resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ");
+  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(2);
+  resultadoDivEstado.innerHTML = estadoMensaje;
 
-  const resultadoDivNotas = document.getElementById("resultado-notas")
-  const resultadoDivPromedio = document.getElementById("resultado-promedio")
-  const resultadoDivEstado = document.getElementById("resultado-estado")
-
-  resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ")
-  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(2)
-  resultadoDivEstado.innerHTML = estado
+  aprobado.style.display = estado === "aprobado" ? "block" : "none";
+  reprobado.style.display = estado === "reprobado" ? "block" : "none";
+  resultadoDivEstado.style.borderColor = estado === "aprobado" ? "#00DDB3" : "#F52C2C"
+  resultadoDivEstado.style.display = estado !== "" ? "block" : "none";
 }
 
-document.getElementById("calcularButton").addEventListener("click", calcularPromedio)
+document.getElementById("calcularButton").addEventListener("click", calcularPromedio);
