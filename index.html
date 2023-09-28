@@ -7,25 +7,51 @@
     <link rel="stylesheet" href="./src/css/index.css" />
   </head>
   <body>
-    <header>
-      <h1>Primera Pre Entrega</h1>
-    </header>
-    <section class="section-container">
-      <form id="formulario" class="section-1">
-        <p>Ingresa el numero de notas:</p>
-        <input
-          id="cantidadNotas"
-          class="input"
-          type="number"
-          value="2"
-          min="2"
-          max="10"
-        />
-        <div id="calcularButton" class="button" type="button">Calcular Promedio</div>
-      </form>
-
-      <div id="resultado" class="results"></div>
+    <section id="border" class="general-container">
+      <header>
+        <h1>Primera Pre Entrega</h1>
+      </header>
+      <section>
+        <form id="formulario" class="section-1">
+          <p>Ingresa el numero de notas:</p>
+          <input id="cantidadNotas" class="input" type="number" value="2" min="2" max="10" />
+          <div id="calcularButton" class="button" type="button">Calcular Promedio</div>
+        </form>
+        <div class="results-container">
+          <div id="resultado-notas" class="results-notas"></div>
+          <div id="resultado-promedio" class="results-promedio"></div>
+          <div id="resultado-estado" class="results-estado"></div>
+          <lottie-player
+            id="lottie-reprobado"
+            class="lottie-2"
+            src="https://lottie.host/a195d2b3-a4b8-4fd0-8ee4-f04e3a05fa49/7EfIYo5bcl.json"
+            background="transparent"
+            speed="1"
+            style="width: 300px; height: 300px"
+            direction="1"
+            mode="normal"
+            loop
+            autoplay
+          ></lottie-player>
+          <lottie-player
+            id="lottie-aprobado"
+            class="lottie-1"
+            src="https://lottie.host/3a47dc62-1c47-4fb9-b9a0-05d48b44c106/mQRBwXDiaq.json"
+            background="transparent"
+            speed="1"
+            style="width: 300px; height: 300px"
+            direction="1"
+            mode="normal"
+            loop
+            autoplay
+          ></lottie-player>
+        </div>
+      </section>
     </section>
   </body>
   <script src="./src/js/main.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </html>
+
+<!-- https://lottie.host/4c087c45-85c5-4bb1-aad0-78441d44383a/3oXNbXxxkA.json -->
+<!-- https://lottie.host/91e5877d-f9c7-44a7-a111-72dad0453cf5/7WQf38JkeT.json -->
