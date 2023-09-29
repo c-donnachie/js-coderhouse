@@ -27,16 +27,16 @@ function calcularPromedio() {
   let estadoMensaje = ""
   let estado = ""
 
-  if (promedio === 100.0) {
+  if (promedio === 10.0) {
     estado = "aprobado"
     estadoMensaje = "Perfecto 🥳"
-  } else if (promedio >= 90.0) {
+  } else if (promedio >= 9.0) {
     estado = "aprobado"
     estadoMensaje = "Distinguido 🤩"
-  } else if (promedio >= 76.0) {
+  } else if (promedio >= 7,6.0) {
     estado = "aprobado"
     estadoMensaje = "Muy bien 😎"
-  } else if (promedio >= 60.0) {
+  } else if (promedio >= 6.0) {
     estado = "aprobado"
     estadoMensaje = "Suficiente 😁"
   } else {
