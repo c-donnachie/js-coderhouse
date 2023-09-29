@@ -18,7 +18,7 @@ function calcularPromedio() {
       alert("Por favor, ingresa un número válido.")
       i--
     } else {
-      notas.push(nota)
+      notas.push(nota.toFixed(1))
       suma += nota
     }
   }
@@ -27,16 +27,18 @@ function calcularPromedio() {
   let estadoMensaje = ""
   let estado = ""
 
-  if (promedio === 10.0) {
+  console.log(promedio)
+
+  if (promedio === 10) {
     estado = "aprobado"
     estadoMensaje = "Perfecto 🥳"
-  } else if (promedio >= 9.0) {
+  } else if (promedio >= 9) {
     estado = "aprobado"
     estadoMensaje = "Distinguido 🤩"
-  } else if (promedio >= 7,6.0) {
+  } else if (promedio >= 7.6) {
     estado = "aprobado"
     estadoMensaje = "Muy bien 😎"
-  } else if (promedio >= 6.0) {
+  } else if (promedio >= 6) {
     estado = "aprobado"
     estadoMensaje = "Suficiente 😁"
   } else {
@@ -45,7 +47,7 @@ function calcularPromedio() {
   }
 
   resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ")
-  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(2)
+  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(1)
   resultadoDivEstado.innerHTML = estadoMensaje
 
   aprobado.style.display = estado === "aprobado" ? "block" : "none"
