@@ -54,7 +54,7 @@ function calcularPromedio() {
   }
 
   resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ")
-  resultadoDivPromedio.innerHTML = "Promedio: " + promedio
+  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(1)
   resultadoDivEstado.innerHTML = estadoMensaje
 
   aprobado.style.display = estado === "aprobado" ? "block" : "none"
