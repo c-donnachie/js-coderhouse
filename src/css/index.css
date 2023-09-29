@@ -21,6 +21,12 @@ p {
   font-weight: bold;
 }
 
+header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .general-container {
   display: flex;
   flex-direction: column;

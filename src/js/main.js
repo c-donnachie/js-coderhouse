@@ -30,22 +30,18 @@ function calcularPromedio() {
   if (promedio === 100.0) {
     estado = "aprobado"
     estadoMensaje = "Perfecto 🥳"
-    border.style.borderColor = "#00DDB3"
   } else if (promedio >= 90.0) {
     estado = "aprobado"
     estadoMensaje = "Distinguido 🤩"
-    border.style.borderColor = "#00DDB3"
   } else if (promedio >= 76.0) {
     estado = "aprobado"
-    border.style.borderColor = "#00DDB3"
+    estadoMensaje = "Muy bien 😎"
   } else if (promedio >= 60.0) {
     estado = "aprobado"
     estadoMensaje = "Suficiente 😁"
-    border.style.borderColor = "#00DDB3"
   } else {
     estado = "reprobado"
     estadoMensaje = "Reprobado 🥲"
-    border.style.borderColor = "#F52C2C"
   }
 
   resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ")
@@ -54,6 +50,7 @@ function calcularPromedio() {
 
   aprobado.style.display = estado === "aprobado" ? "block" : "none"
   reprobado.style.display = estado === "reprobado" ? "block" : "none"
+  border.style.borderColor = estado == "aprobado" ? "#00DDB3" : "#F52C2C"
   resultadoDivEstado.style.borderColor = estado === "aprobado" ? "#00DDB3" : "#F52C2C"
   resultadoDivEstado.style.display = estado !== "" ? "block" : "none"
 }
