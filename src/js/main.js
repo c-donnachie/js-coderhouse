@@ -2,6 +2,7 @@ class CalculadoraPromedio {
   constructor() {
     this.nombreAlumnoInput = document.getElementById("nombreAlumno")
     this.cantidadNotasInput = document.getElementById("cantidadNotas")
+    this.resultadoDivAlumno = document.getElementById("resultado-alumno")
     this.resultadoDivNotas = document.getElementById("resultado-notas")
     this.resultadoDivPromedio = document.getElementById("resultado-promedio")
     this.resultadoDivEstado = document.getElementById("resultado-estado")
@@ -10,7 +11,6 @@ class CalculadoraPromedio {
     this.reprobado = document.getElementById("lottie-reprobado")
 
     this.nombreAlumno = ""
-    this.id
     this.cantidadNotas = 0
     this.notas = []
     this.suma = 0
@@ -30,8 +30,8 @@ class CalculadoraPromedio {
     this.actualizarTablaPromedios()
 
     // Agrega evento al filtro
-    const filtroNombreInput = document.getElementById("filtroNombre")
-    filtroNombreInput.addEventListener("input", () => {
+    this.filtroNombreInput = document.getElementById("filtroNombre")
+    this.filtroNombreInput.addEventListener("input", () => {
       this.actualizarTablaPromedios()
     })
   }
@@ -47,14 +47,18 @@ class CalculadoraPromedio {
     this.nombreAlumno = this.nombreAlumnoInput.value
 
     // Validaciones nombre estudiante
-
     if (this.nombreAlumno.trim() === "") {
-      alert("Por favor, ingresa el nombre del alumno.")
+      alert("Ingresa el nombre del alumno!")
+      return
+    }
+
+    const expresionRegular = /^[A-Za-z\s]+$/
+    if (!expresionRegular.test(this.nombreAlumno)) {
+      alert("El nombre del alumno solo debe contener letras y espacios!")
       return
     }
 
     // Ingreso notas y validaciones
-
     for (let i = 0; i < this.cantidadNotas; i++) {
       let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`))
 
@@ -76,11 +80,9 @@ class CalculadoraPromedio {
     }
 
     // Calcular Promedio
-
     this.promedio = this.notas.length > 0 ? this.suma / this.notas.length : 0
 
     // Estados de aprobacion o no
-
     if (this.promedio === 10) {
       this.estado = "aprobado"
       this.estadoMensaje = "Perfecto 🥳"
@@ -99,7 +101,6 @@ class CalculadoraPromedio {
     }
 
     // Arreglo de Objetos, Nuevo alumno
-
     const nuevoAlumno = {
       nombreAlumno: this.nombreAlumno,
       notas: this.notas,
@@ -109,19 +110,22 @@ class CalculadoraPromedio {
 
     this.listaPromedios = [...this.listaPromedios, nuevoAlumno]
 
-    // Resultado
-
+    // Resultados
+    this.resultadoDivAlumno.innerHTML = "Alumno: " + this.nombreAlumno
     this.resultadoDivNotas.innerHTML = "Notas ingresadas: " + this.notas.join(", ")
     this.resultadoDivPromedio.innerHTML = "Promedio: " + this.promedio.toFixed(1)
     this.resultadoDivEstado.innerHTML = this.estadoMensaje
 
     // Css condicionado
-
     this.aprobado.style.display = this.estado === "aprobado" ? "block" : "none"
     this.reprobado.style.display = this.estado === "reprobado" ? "block" : "none"
     this.border.style.borderColor = this.estado == "aprobado" ? "#00DDB3" : "#F52C2C"
     this.resultadoDivEstado.style.borderColor = this.estado === "aprobado" ? "#00DDB3" : "#F52C2C"
     this.resultadoDivEstado.style.display = this.estado !== "" ? "block" : "none"
+
+    //limpiar inputs y focus
+    this.nombreAlumnoInput.value = ""
+    this.nombreAlumnoInput.focus()
 
     // Llama a actualizar la tabla de promedios
     this.actualizarTablaPromedios()
@@ -147,10 +151,6 @@ class CalculadoraPromedio {
 
     // Agrega datos/filas al html
     filas.forEach((fila) => tablaPromedios.appendChild(fila))
-
-    //limpiar input alumno y focus
-    this.nombreAlumnoInput.value = ""
-    this.nombreAlumnoInput.focus()
   }
 }
 

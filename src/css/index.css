@@ -45,7 +45,7 @@ header {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  padding: 4rem;
+  padding: 2rem 4rem 4rem 4rem;
   gap: 1rem;
 }
 
@@ -109,6 +109,7 @@ header {
   gap: 10px;
 }
 
+.results-alumno,
 .results-notas,
 .results-promedio,
 .results-estado {
