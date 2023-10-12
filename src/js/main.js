@@ -26,10 +26,10 @@ class CalculadoraPromedio {
       .getElementById("calcularButton")
       .addEventListener("click", this.calcularPromedio.bind(this))
 
-    // Inicializa la tabla de promedios
+    // Inicia la tabla promedios
     this.actualizarTablaPromedios()
 
-    // Agrega un evento al campo de filtro
+    // Agrega evento al filtro
     const filtroNombreInput = document.getElementById("filtroNombre")
     filtroNombreInput.addEventListener("input", () => {
       this.actualizarTablaPromedios()
@@ -45,6 +45,13 @@ class CalculadoraPromedio {
     this.promedio = 0
     this.cantidadNotas = parseInt(this.cantidadNotasInput.value)
     this.nombreAlumno = this.nombreAlumnoInput.value
+
+    // Validaciones nombre estudiante
+
+    if (this.nombreAlumno.trim() === "") {
+      alert("Por favor, ingresa el nombre del alumno.")
+      return
+    }
 
     // Ingreso notas y validaciones
 
@@ -140,6 +147,10 @@ class CalculadoraPromedio {
 
     // Agrega datos/filas al html
     filas.forEach((fila) => tablaPromedios.appendChild(fila))
+
+    //limpiar input alumno y focus
+    this.nombreAlumnoInput.value = ""
+    this.nombreAlumnoInput.focus()
   }
 }
 

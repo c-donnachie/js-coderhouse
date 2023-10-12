@@ -23,8 +23,7 @@ p {
 
 header {
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  text-align: center;
 }
 
 .general-container {
@@ -50,9 +49,29 @@ header {
   gap: 1rem;
 }
 
+.nombreAlumno {
+  height: 3rem;
+  width: 8;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+  border-style: none;
+}
+
 .input {
   height: 3rem;
   width: 3rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+  border-style: none;
+}
+
+.nombreAlumno {
+  height: 3rem;
+  width: 8;
   border-radius: 0.5rem;
   text-align: center;
   font-size: medium;
@@ -135,4 +154,37 @@ header {
   background-color: red;
   height: 20px;
   width: auto;
+}
+
+.filtroNombre {
+  height: 3rem;
+  width: 8;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+  border-style: none;
+}
+
+.filtroNombre::placeholder,
+.nombreAlumno::placeholder {
+  color: #44444478;
+  font-weight: normal;
+}
+
+table {
+  width: 80%;
+  margin: 20px auto;
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 10px;
+  text-align: center;
+}
+
+tbody tr:nth-child(odd) {
+  background-color: #f2f2f2;
 }

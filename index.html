@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Primera Pre Entrega</title>
+    <title>Segunda Pre Entrega</title>
     <link rel="stylesheet" href="./src/css/index.css" />
   </head>
   <body>
@@ -14,7 +14,7 @@
       <section>
         <form id="formulario" class="section-1">
           <p>Nombre alumno:</p>
-          <input id="nombreAlumno" type="text" placeholder="Fernando" />
+          <input id="nombreAlumno" class="nombreAlumno" type="text" placeholder="Fernando" />
           <p>Ingresa el numero de notas:</p>
           <input id="cantidadNotas" class="input" type="number" value="2" min="2" max="10" />
           <div id="calcularButton" class="button" type="button">Calcular Promedio</div>
@@ -49,9 +49,14 @@
           ></lottie-player>
         </div>
       </section>
-      <input type="text" id="filtroNombre" placeholder="Filtrar por nombre" />
+      <input
+        type="text"
+        id="filtroNombre"
+        class="filtroNombre"
+        placeholder="Filtrar por nombre 🔍"
+      />
       <table>
-        <thead>
+        <thead class="tabla">
           <tr>
             <th>Nombre</th>
             <th>Promedio</th>
