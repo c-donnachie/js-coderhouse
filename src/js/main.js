@@ -1,67 +1,146 @@
-function calcularPromedio() {
-  const cantidadNotasInput = document.getElementById("cantidadNotas")
-  const resultadoDivNotas = document.getElementById("resultado-notas")
-  const resultadoDivPromedio = document.getElementById("resultado-promedio")
-  const resultadoDivEstado = document.getElementById("resultado-estado")
-  const border = document.getElementById("border")
-  const aprobado = document.getElementById("lottie-aprobado")
-  const reprobado = document.getElementById("lottie-reprobado")
+class CalculadoraPromedio {
+  constructor() {
+    this.nombreAlumnoInput = document.getElementById("nombreAlumno")
+    this.cantidadNotasInput = document.getElementById("cantidadNotas")
+    this.resultadoDivNotas = document.getElementById("resultado-notas")
+    this.resultadoDivPromedio = document.getElementById("resultado-promedio")
+    this.resultadoDivEstado = document.getElementById("resultado-estado")
+    this.border = document.getElementById("border")
+    this.aprobado = document.getElementById("lottie-aprobado")
+    this.reprobado = document.getElementById("lottie-reprobado")
 
-  const cantidadNotas = parseInt(cantidadNotasInput.value)
-  const notas = []
-  let suma = 0
-  let nota2 = 0
+    this.nombreAlumno = ""
+    this.id
+    this.cantidadNotas = 0
+    this.notas = []
+    this.suma = 0
+    this.nota2 = 0
+    this.estadoMensaje = ""
+    this.estado = ""
+    this.promedio = 0
 
-  for (let i = 0; i < cantidadNotas; i++) {
-    let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`))
+    // Arreglo de Objetos
+    this.listaPromedios = []
 
-    nota2 = nota >= 10 ? nota : nota.toFixed(1)
+    document
+      .getElementById("calcularButton")
+      .addEventListener("click", this.calcularPromedio.bind(this))
 
-    if (isNaN(nota)) {
-      alert("Por favor, ingresa un número válido.")
-      i--
-    } else if (nota > 10) {
-      alert("La nota maxima es un 10!")
-      i--
-    } else if (nota < 1) {
-      alert("La nota no puede ser menor a 1!")
-      i--
-    } else {
-      notas.push(nota)
-      suma += nota
+    // Inicializa la tabla de promedios
+    this.actualizarTablaPromedios()
+
+    // Agrega un evento al campo de filtro
+    const filtroNombreInput = document.getElementById("filtroNombre")
+    filtroNombreInput.addEventListener("input", () => {
+      this.actualizarTablaPromedios()
+    })
+  }
+
+  calcularPromedio() {
+    this.notas = []
+    this.suma = 0
+    this.nota2 = 0
+    this.estadoMensaje = ""
+    this.estado = ""
+    this.promedio = 0
+    this.cantidadNotas = parseInt(this.cantidadNotasInput.value)
+    this.nombreAlumno = this.nombreAlumnoInput.value
+
+    // Ingreso notas y validaciones
+
+    for (let i = 0; i < this.cantidadNotas; i++) {
+      let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`))
+
+      this.nota2 = nota >= 10 ? nota : nota.toFixed(1)
+
+      if (isNaN(nota)) {
+        alert("Por favor, ingresa un número válido.")
+        i--
+      } else if (nota > 10) {
+        alert("La nota máxima es 10.")
+        i--
+      } else if (nota < 1) {
+        alert("La nota no puede ser menor a 1.")
+        i--
+      } else {
+        this.notas.push(nota)
+        this.suma += nota
+      }
     }
+
+    // Calcular Promedio
+
+    this.promedio = this.notas.length > 0 ? this.suma / this.notas.length : 0
+
+    // Estados de aprobacion o no
+
+    if (this.promedio === 10) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "Perfecto 🥳"
+    } else if (this.promedio >= 9) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "Distinguido 🤩"
+    } else if (this.promedio >= 7.6) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "Muy bien 😎"
+    } else if (this.promedio >= 6) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "Suficiente 😁"
+    } else {
+      this.estado = "reprobado"
+      this.estadoMensaje = "Reprobado 🥲"
+    }
+
+    // Arreglo de Objetos, Nuevo alumno
+
+    const nuevoAlumno = {
+      nombreAlumno: this.nombreAlumno,
+      notas: this.notas,
+      promedio: this.promedio,
+      estado: this.estado,
+    }
+
+    this.listaPromedios = [...this.listaPromedios, nuevoAlumno]
+
+    // Resultado
+
+    this.resultadoDivNotas.innerHTML = "Notas ingresadas: " + this.notas.join(", ")
+    this.resultadoDivPromedio.innerHTML = "Promedio: " + this.promedio.toFixed(1)
+    this.resultadoDivEstado.innerHTML = this.estadoMensaje
+
+    // Css condicionado
+
+    this.aprobado.style.display = this.estado === "aprobado" ? "block" : "none"
+    this.reprobado.style.display = this.estado === "reprobado" ? "block" : "none"
+    this.border.style.borderColor = this.estado == "aprobado" ? "#00DDB3" : "#F52C2C"
+    this.resultadoDivEstado.style.borderColor = this.estado === "aprobado" ? "#00DDB3" : "#F52C2C"
+    this.resultadoDivEstado.style.display = this.estado !== "" ? "block" : "none"
+
+    // Llama a actualizar la tabla de promedios
+    this.actualizarTablaPromedios()
   }
 
-  const promedio = notas.length > 0 ? suma / notas.length : 0
-  let estadoMensaje = ""
-  let estado = ""
+  actualizarTablaPromedios() {
+    const filtroNombre = document.getElementById("filtroNombre").value.toLowerCase()
+    const tablaPromedios = document.getElementById("tablaPromedios")
+    tablaPromedios.innerHTML = "" // Borrar tabla anterior
 
-  if (promedio === 10) {
-    estado = "aprobado"
-    estadoMensaje = "Perfecto 🥳"
-  } else if (promedio >= 9) {
-    estado = "aprobado"
-    estadoMensaje = "Distinguido 🤩"
-  } else if (promedio >= 7.6) {
-    estado = "aprobado"
-    estadoMensaje = "Muy bien 😎"
-  } else if (promedio >= 6) {
-    estado = "aprobado"
-    estadoMensaje = "Suficiente 😁"
-  } else {
-    estado = "reprobado"
-    estadoMensaje = "Reprobado 🥲"
+    // Nuevo arreglo de "listaPromedios" con map
+    const filas = this.listaPromedios
+      .filter((alumno) => alumno.nombreAlumno.toLowerCase().includes(filtroNombre))
+      .map((alumno) => {
+        const fila = document.createElement("tr")
+        fila.innerHTML = `
+          <td>${alumno.nombreAlumno}</td>
+          <td>${alumno.promedio.toFixed(1)}</td>
+          <td>${alumno.estado}</td>
+        `
+        return fila
+      })
+
+    // Agrega datos/filas al html
+    filas.forEach((fila) => tablaPromedios.appendChild(fila))
   }
-
-  resultadoDivNotas.innerHTML = "Notas ingresadas: " + notas.join(", ")
-  resultadoDivPromedio.innerHTML = "Promedio: " + promedio.toFixed(1)
-  resultadoDivEstado.innerHTML = estadoMensaje
-
-  aprobado.style.display = estado === "aprobado" ? "block" : "none"
-  reprobado.style.display = estado === "reprobado" ? "block" : "none"
-  border.style.borderColor = estado == "aprobado" ? "#00DDB3" : "#F52C2C"
-  resultadoDivEstado.style.borderColor = estado === "aprobado" ? "#00DDB3" : "#F52C2C"
-  resultadoDivEstado.style.display = estado !== "" ? "block" : "none"
 }
 
-document.getElementById("calcularButton").addEventListener("click", calcularPromedio)
+const calculadora = new CalculadoraPromedio()
