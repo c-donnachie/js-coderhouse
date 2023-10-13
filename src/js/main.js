@@ -116,14 +116,14 @@ class CalculadoraPromedio {
     this.resultadoDivPromedio.innerHTML = "Promedio: " + this.promedio.toFixed(1)
     this.resultadoDivEstado.innerHTML = this.estadoMensaje
 
-    // Css condicionado
+    // CSS condicionado
     this.aprobado.style.display = this.estado === "aprobado" ? "block" : "none"
     this.reprobado.style.display = this.estado === "reprobado" ? "block" : "none"
     this.border.style.borderColor = this.estado == "aprobado" ? "#00DDB3" : "#F52C2C"
     this.resultadoDivEstado.style.borderColor = this.estado === "aprobado" ? "#00DDB3" : "#F52C2C"
     this.resultadoDivEstado.style.display = this.estado !== "" ? "block" : "none"
 
-    //limpiar inputs y focus
+    // Limpiar inputs y focus
     this.nombreAlumnoInput.value = ""
     this.nombreAlumnoInput.focus()
 

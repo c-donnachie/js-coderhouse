@@ -45,7 +45,7 @@ header {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  padding: 2rem 4rem 4rem 4rem;
+  padding: 1rem 4rem 2rem 4rem;
   gap: 1rem;
 }
 
