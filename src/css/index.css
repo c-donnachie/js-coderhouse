@@ -189,3 +189,18 @@ td {
 tbody tr:nth-child(odd) {
   background-color: #f2f2f2;
 }
+
+@media (width <= 767px) {
+  .general-container {
+    margin: 20px;
+  }
+
+  .section-1 {
+    padding: 0rem 2rem 1rem 2rem;
+    gap: 0.8rem;
+  }
+
+  .results-container {
+    gap: 10px;
+  }
+}
