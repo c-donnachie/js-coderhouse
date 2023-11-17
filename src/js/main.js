@@ -14,6 +14,11 @@ document.addEventListener("DOMContentLoaded", function () {
     scrollAlElemento("resultados")
   })
 
+  calcularButton.addEventListener("touchend", function () {
+    calculadora.calcularPromedio()
+    scrollAlElemento("resultados")
+  })
+
   function scrollAlElemento(elementoID) {
     var elemento = document.getElementById(elementoID)
     if (elemento) {
