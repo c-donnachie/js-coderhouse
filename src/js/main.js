@@ -290,6 +290,9 @@ class CalculadoraPromedio {
 
     // Llama a actualizar la tabla de promedios
     this.actualizarTablaPromedios()
+
+    // Cerrar teclado movil
+    document.activeElement.blur()
   }
 
   calcularPromedioTotal() {
