@@ -286,7 +286,7 @@ class CalculadoraPromedio {
     // Limpiar inputs y focus
     this.limpiarInputs()
     this.nombreAlumnoInput.value = ""
-    this.nombreAlumnoInput.focus()
+    // this.nombreAlumnoInput.focus()
 
     // Llama a actualizar la tabla de promedios
     this.actualizarTablaPromedios()
