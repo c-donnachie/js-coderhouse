@@ -15,7 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
   })
 
   calcularButton.addEventListener("touchend", function () {
-    calculadora.calcularPromedio()
     scrollAlElemento("resultados")
   })
 
