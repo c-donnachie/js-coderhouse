@@ -1,0 +1,14 @@
+[
+  {
+    "nombreAlumno": "Fernando",
+    "notas": [7, 4, 10],
+    "promedio": 7.0,
+    "estado": "aprobado"
+  },
+  {
+    "nombreAlumno": "Daniela",
+    "notas": [8.5, 5, 9.2],
+    "promedio": 7.6,
+    "estado": "aprobado"
+  }
+]

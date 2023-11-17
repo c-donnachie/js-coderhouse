@@ -11,13 +11,18 @@
       <header>
         <h1>Calculador de promedio 🧮</h1>
       </header>
+      <!-- FIN -->
       <section>
-        <form id="formulario" class="section-1">
-          <p>Nombre / Asignatura:</p>
-          <input id="nombreAlumno" class="nombreAlumno" type="text" placeholder="Cristian" />
-          <p>Numero de notas:</p>
-          <input id="cantidadNotas" class="input" type="number" value="2" min="2" max="10" />
-          <div id="calcularButton" class="button" type="button">Calcular Promedio</div>
+        <!-- Seccion 1 -->
+        <form id="formulario" class="sub-container">
+          <section class="section-1">
+            <p>Nombre / Asignatura:</p>
+            <input id="nombreAlumno" class="nombreAlumno" type="text" placeholder="Cristian" />
+            <div id="calcularButton" class="button" type="button">Calcular Promedio</div>
+          </section>
+          <div id="notas-inputs" class="notas-inputs-container notas-inputs"></div>
+          <button id="agregarBtn" class="button">+</button>
+          <!-- Fin sub-container -->
         </form>
         <div class="results-container">
           <div id="resultado-alumno" class="results-alumno"></div>
@@ -70,4 +75,5 @@
   </body>
   <script src="./src/js/main.js"></script>
   <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </html>

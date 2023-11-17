@@ -38,6 +38,12 @@ header {
   border: 3px solid #9181f8;
 }
 
+.sub-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 .section-1 {
   position: relative;
   z-index: 10;
@@ -45,18 +51,55 @@ header {
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
-  padding: 1rem 4rem 2rem 4rem;
+  padding: 1rem 4rem 1rem 4rem;
   gap: 1rem;
 }
 
-.nombreAlumno {
+.notas-inputs-container {
+  max-width: 30rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.notas-inputs input {
   height: 3rem;
-  width: 8;
+  width: 4.5rem;
   border-radius: 0.5rem;
   text-align: center;
   font-size: medium;
   font-weight: bold;
   border-style: none;
+  line-height: 3rem;
+}
+
+.nombreAlumno {
+  height: 3rem;
+  width: 12rem;
+  border-radius: 0.5rem;
+  text-align: center;
+  font-size: medium;
+  font-weight: bold;
+  border-style: none;
+}
+
+.input-container {
+  position: relative;
+  display: flex;
+}
+
+.button-delete {
+  position: absolute;
+  cursor: pointer;
+  top: -3px;
+  left: 4px;
+  color: rgb(96, 96, 96);
+  font-weight: bold;
+}
+
+.button-delete:hover {
+  color: rgb(218, 17, 17);
 }
 
 .input {
@@ -107,6 +150,7 @@ header {
   justify-content: center;
   align-items: center;
   gap: 10px;
+  margin-top: 1rem;
 }
 
 .results-alumno,
@@ -192,7 +236,7 @@ tbody tr:nth-child(odd) {
 
 @media (width <= 767px) {
   .general-container {
-    margin: 20px;
+    margin: 10px;
   }
 
   .section-1 {

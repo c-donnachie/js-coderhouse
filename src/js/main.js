@@ -1,3 +1,18 @@
+document.addEventListener("DOMContentLoaded", function () {
+  const calculadora = new CalculadoraPromedio()
+
+  var agregarBtn = document.getElementById("agregarBtn")
+  agregarBtn.addEventListener("click", function (event) {
+    event.preventDefault()
+    calculadora.agregarInput()
+  })
+
+  var calcularButton = document.getElementById("calcularButton")
+  calcularButton.addEventListener("click", function () {
+    calculadora.calcularPromedio()
+  })
+})
+
 class CalculadoraPromedio {
   constructor() {
     this.nombreAlumnoInput = document.getElementById("nombreAlumno")
@@ -9,101 +24,246 @@ class CalculadoraPromedio {
     this.border = document.getElementById("border")
     this.aprobado = document.getElementById("lottie-aprobado")
     this.reprobado = document.getElementById("lottie-reprobado")
+    this.notasInputs = document.getElementById("notas-inputs")
+
+    // Iniciar con dos inputs
+    this.agregarInputsIniciales(2)
+
+    this.inicializarListaPromedios()
 
     this.nombreAlumno = ""
-    this.cantidadNotas = 0
+    this.cantidadNotas = 2
     this.notas = []
-    this.suma = 0
-    this.nota2 = 0
     this.estadoMensaje = ""
     this.estado = ""
     this.promedio = 0
-
-    // Arreglo de Objetos
     this.listaPromedios = []
 
-    document
-      .getElementById("calcularButton")
-      .addEventListener("click", this.calcularPromedio.bind(this))
-
-    // Inicia la tabla promedios
-    this.actualizarTablaPromedios()
-
-    // Agrega evento al filtro
     this.filtroNombreInput = document.getElementById("filtroNombre")
     this.filtroNombreInput.addEventListener("input", () => {
       this.actualizarTablaPromedios()
     })
+
+    // Condicional CSS Cantidad notas
+    if (this.cantidadNotas <= 1) {
+      this.notasInputs.style.display = this.estado === "aprobado" ? "block" : "none"
+    }
+  }
+
+  limpiarInputs() {
+    var inputs = this.notasInputs.querySelectorAll("input")
+
+    inputs.forEach(function (input) {
+      input.value = ""
+    })
+  }
+
+  async inicializarListaPromedios() {
+    try {
+      const response = await fetch("https://run.mocky.io/v3/1efbc0bb-f15e-4d29-ae69-44741f28afde")
+      const data = await response.json()
+
+      if (Array.isArray(data)) {
+        this.listaPromedios = data
+        this.actualizarTablaPromedios()
+      } else {
+        console.error("Error: Los datos obtenidos no son un arreglo.")
+      }
+    } catch (error) {
+      console.error("Error al obtener los datos:", error)
+    }
+  }
+
+  agregarInputsIniciales(cantidad) {
+    for (let i = 0; i < cantidad; i++) {
+      this.agregarInput()
+    }
+  }
+
+  agregarInput() {
+    var nuevoInput = document.createElement("div")
+    nuevoInput.classList.add("input-container")
+
+    var inputElement = document.createElement("input")
+    inputElement.setAttribute("type", "number")
+    inputElement.setAttribute("min", "1")
+    inputElement.setAttribute("max", "10")
+    inputElement.placeholder = `Nota ${this.notasInputs.children.length + 1}`
+
+    var deleteButton = document.createElement("div")
+    deleteButton.innerText = "x"
+    deleteButton.classList.add("button-delete")
+
+    deleteButton.addEventListener("click", () => {
+      this.eliminarInput(nuevoInput)
+    })
+
+    nuevoInput.appendChild(inputElement)
+    nuevoInput.appendChild(deleteButton)
+
+    this.notasInputs.appendChild(nuevoInput)
+
+    // Configurar MutationObserver para detectar cambios en el DOM
+    var observer = new MutationObserver(() => {
+      this.actualizarVisibilidadEliminar()
+    })
+
+    // Observar cambios en notasInputs
+    observer.observe(this.notasInputs, { childList: true })
+
+    // Detener la la obserbacion
+    setTimeout(() => {
+      observer.disconnect()
+    }, 100)
+  }
+
+  eliminarInput(inputDiv) {
+    var inputs = this.notasInputs.children
+
+    // Verificar si hay mas elementos
+    if (inputs.length > 2) {
+      this.notasInputs.removeChild(inputDiv)
+      this.renumerarInputs()
+    }
+
+    // Actualizar la visibilidad de eliminar
+    this.actualizarVisibilidadEliminar()
+  }
+
+  actualizarVisibilidadEliminar() {
+    var inputs = this.notasInputs.children
+    var tieneDosElementos = inputs.length === 2
+
+    for (let i = 0; i < inputs.length; i++) {
+      var deleteButton = inputs[i].querySelector("div")
+      if (deleteButton) {
+        deleteButton.disabled = tieneDosElementos
+        deleteButton.style.display = tieneDosElementos ? "none" : "block"
+      }
+    }
   }
 
   calcularPromedio() {
     this.notas = []
-    this.suma = 0
-    this.nota2 = 0
-    this.estadoMensaje = ""
-    this.estado = ""
     this.promedio = 0
-    this.cantidadNotas = parseInt(this.cantidadNotasInput.value)
     this.nombreAlumno = this.nombreAlumnoInput.value
 
     // Validaciones nombre estudiante
     if (this.nombreAlumno.trim() === "") {
-      alert("Ingresa el nombre del alumno!")
+      Swal.fire({
+        title: "No tan rapido...",
+        text: "Ingresa un nombre",
+        icon: "error",
+        confirmButtonText: "Ok",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      })
       return
     }
 
     const expresionRegular = /^[A-Za-z\s]+$/
     if (!expresionRegular.test(this.nombreAlumno)) {
-      alert("El nombre del alumno solo debe contener letras y espacios!")
+      Swal.fire({
+        title: "Heyyy!",
+        text: "¡El nombre del alumno solo debe contener letras y espacios!",
+        icon: "error",
+        confirmButtonText: "Ok",
+        showClass: {
+          popup: `
+            animate__animated
+            animate__fadeInUp
+            animate__faster
+          `,
+        },
+        hideClass: {
+          popup: `
+            animate__animated
+            animate__fadeOutDown
+            animate__faster
+          `,
+        },
+      })
       return
     }
 
-    // Ingreso notas y validaciones
-    for (let i = 0; i < this.cantidadNotas; i++) {
-      let nota = parseFloat(prompt(`Ingresa la nota número ${i + 1}`))
+    // Obtener notas de los inputs
+    var inputs = document.querySelectorAll("#notas-inputs input")
+    for (let i = 0; i < inputs.length; i++) {
+      let input = inputs[i]
+      let nota = parseFloat(input.value.trim())
 
-      this.nota2 = nota >= 10 ? nota : nota.toFixed(1)
-
-      if (isNaN(nota)) {
-        alert("Por favor, ingresa un número válido.")
-        i--
-      } else if (nota > 10) {
-        alert("La nota máxima es 10.")
-        i--
-      } else if (nota < 1) {
-        alert("La nota no puede ser menor a 1.")
-        i--
+      // Validarciones
+      if (isNaN(nota) || input.value.trim() === "") {
+        Swal.fire({
+          title: "No tan rapido...",
+          text: "Ingresa un número en todos los campos.",
+          icon: "error",
+          confirmButtonText: "Ok",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        })
+        return
+      } else if (nota > 10 || nota < 1) {
+        Swal.fire({
+          title: "No tan rapido...",
+          text: "La nota debe estar entre 1 y 10.",
+          icon: "error",
+          confirmButtonText: "Ok",
+          showClass: {
+            popup: `
+              animate__animated
+              animate__fadeInUp
+              animate__faster
+            `,
+          },
+          hideClass: {
+            popup: `
+              animate__animated
+              animate__fadeOutDown
+              animate__faster
+            `,
+          },
+        })
+        return
       } else {
         this.notas.push(nota)
-        this.suma += nota
       }
     }
 
     // Calcular Promedio
-    this.promedio = this.notas.length > 0 ? this.suma / this.notas.length : 0
+    this.promedio = this.notas.length > 0 ? this.calcularPromedioTotal() : 0
 
-    // Estados de aprobacion o no
-    if (this.promedio === 10) {
-      this.estado = "aprobado"
-      this.estadoMensaje = "Perfecto 🥳"
-    } else if (this.promedio >= 9) {
-      this.estado = "aprobado"
-      this.estadoMensaje = "Distinguido 🤩"
-    } else if (this.promedio >= 7.6) {
-      this.estado = "aprobado"
-      this.estadoMensaje = "Muy bien 😎"
-    } else if (this.promedio >= 6) {
-      this.estado = "aprobado"
-      this.estadoMensaje = "Suficiente 😁"
-    } else {
-      this.estado = "reprobado"
-      this.estadoMensaje = "Reprobado 🥲"
-    }
+    // Estados de aprobación o no
+    this.calcularEstado()
 
     // Arreglo de Objetos, Nuevo alumno
     const nuevoAlumno = {
       nombreAlumno: this.nombreAlumno,
-      notas: this.notas,
+      notas: [...this.notas],
       promedio: this.promedio,
       estado: this.estado,
     }
@@ -124,6 +284,7 @@ class CalculadoraPromedio {
     this.resultadoDivEstado.style.display = this.estado !== "" ? "block" : "none"
 
     // Limpiar inputs y focus
+    this.limpiarInputs()
     this.nombreAlumnoInput.value = ""
     this.nombreAlumnoInput.focus()
 
@@ -131,8 +292,31 @@ class CalculadoraPromedio {
     this.actualizarTablaPromedios()
   }
 
+  calcularPromedioTotal() {
+    return this.notas.reduce((total, nota) => total + nota, 0) / this.notas.length
+  }
+
+  calcularEstado() {
+    if (this.promedio === 10) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "¡Perfecto 🥳!"
+    } else if (this.promedio >= 9) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "¡Distinguido 🤩!"
+    } else if (this.promedio >= 7.6) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "¡Muy bien 😎!"
+    } else if (this.promedio >= 6) {
+      this.estado = "aprobado"
+      this.estadoMensaje = "¡Suficiente 😁!"
+    } else {
+      this.estado = "reprobado"
+      this.estadoMensaje = "¡Reprobado 🥲!"
+    }
+  }
+
   actualizarTablaPromedios() {
-    const filtroNombre = document.getElementById("filtroNombre").value.toLowerCase()
+    const filtroNombre = this.filtroNombreInput.value.toLowerCase()
     const tablaPromedios = document.getElementById("tablaPromedios")
     tablaPromedios.innerHTML = "" // Borrar tabla anterior
 
@@ -153,5 +337,3 @@ class CalculadoraPromedio {
     filas.forEach((fila) => tablaPromedios.appendChild(fila))
   }
 }
-
-const calculadora = new CalculadoraPromedio()
