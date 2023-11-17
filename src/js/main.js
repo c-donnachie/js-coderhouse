@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
   calcularButton.addEventListener("click", function () {
     calculadora.calcularPromedio()
     document.activeElement.blur()
-    scrollAlElemento("results-container")
+    scrollAlElemento("resultados")
   })
 
   function scrollAlElemento(elementoID) {
