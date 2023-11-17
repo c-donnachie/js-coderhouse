@@ -10,6 +10,7 @@ document.addEventListener("DOMContentLoaded", function () {
   var calcularButton = document.getElementById("calcularButton")
   calcularButton.addEventListener("click", function () {
     calculadora.calcularPromedio()
+    document.activeElement.blur()
   })
 })
 
@@ -290,9 +291,6 @@ class CalculadoraPromedio {
 
     // Llama a actualizar la tabla de promedios
     this.actualizarTablaPromedios()
-
-    // Cerrar teclado movil
-    document.activeElement.blur()
   }
 
   calcularPromedioTotal() {
