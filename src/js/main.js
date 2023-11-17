@@ -11,7 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
   calcularButton.addEventListener("click", function () {
     calculadora.calcularPromedio()
     document.activeElement.blur()
+    scrollAlElemento("results-container")
   })
+
+  function scrollAlElemento(elementoID) {
+    var elemento = document.getElementById(elementoID)
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: "smooth" })
+    }
+  }
 })
 
 class CalculadoraPromedio {
